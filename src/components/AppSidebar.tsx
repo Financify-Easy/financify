@@ -1,4 +1,3 @@
-
 import { 
   TrendingUp, 
   PieChart, 
@@ -21,6 +20,9 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   SidebarFooter,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  SidebarMenuSubButton
 } from "@/components/ui/sidebar";
 
 const mainItems = [
@@ -48,15 +50,41 @@ const mainItems = [
     id: "reports",
     hasSubmenu: true,
   },
+  {
+    title: "Expenses",
+    icon: TrendingDown,
+    id: "expenses",
+    hasSubmenu: true,
+    categories: [
+      "Food",
+      "Monthly Subscription",
+      "Transport",
+      "Shopping",
+      "Other"
+    ]
+  },
+  {
+    title: "Credit Card",
+    icon: CreditCard,
+    id: "credit-card",
+    hasSubmenu: true,
+  },
+  {
+    title: "Loan",
+    icon: DollarSign,
+    id: "loan",
+    hasSubmenu: true,
+  },
 ];
 
 interface AppSidebarProps {
   activeSection: string;
   setActiveSection: (section: string) => void;
   setSecondarySidebarOpen: (open: boolean) => void;
+  setActiveExpenseCategory: (category: string) => void;
 }
 
-export function AppSidebar({ activeSection, setActiveSection, setSecondarySidebarOpen }: AppSidebarProps) {
+export function AppSidebar({ activeSection, setActiveSection, setSecondarySidebarOpen, setActiveExpenseCategory }: AppSidebarProps) {
   const handleItemClick = (id: string) => {
     setActiveSection(id);
     setSecondarySidebarOpen(true);
@@ -68,8 +96,8 @@ export function AppSidebar({ activeSection, setActiveSection, setSecondarySideba
         <div className="flex items-center gap-2">
           <DollarSign className="w-8 h-8 text-white" />
           <div>
-            <h2 className="text-lg font-bold text-white">FinanceHub</h2>
-            <p className="text-xs text-blue-100">SASS Platform</p>
+            <h2 className="text-lg font-bold text-white">Financify</h2>
+            <p className="text-xs text-blue-100">Keep your finances in check</p>
           </div>
         </div>
       </SidebarHeader>
