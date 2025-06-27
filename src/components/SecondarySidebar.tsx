@@ -1,4 +1,4 @@
-import { X, Home, TrendingUp, PieChart, BarChart, FileText, Calendar, Bell, ShoppingCart, CreditCard, Car, ShoppingBag, MoreHorizontal, Plane, DollarSign, Building, Car as CarIcon } from "lucide-react";
+import { X, Home, TrendingUp, PieChart, BarChart, FileText, Calendar, Bell, ShoppingCart, CreditCard, Car, ShoppingBag, MoreHorizontal, Plane, DollarSign, Building, Car as CarIcon, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 
@@ -43,6 +43,10 @@ const sidebarContent = {
   loan: [
     { title: "Housing", icon: Building },
     { title: "Vehicle/Car", icon: CarIcon },
+  ],
+  income: [
+    { title: "Salary", icon: Briefcase },
+    { title: "Rental", icon: Home },
   ],
 };
 
@@ -133,6 +137,7 @@ export function SecondarySidebar({ isOpen, activeSection, setActiveSection, acti
           <button
             key={index}
             className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors text-left"
+            onClick={setActiveExpenseCategory ? () => setActiveExpenseCategory(item.title) : undefined}
           >
             <item.icon className="w-5 h-5" />
             <span className="font-medium">{item.title}</span>

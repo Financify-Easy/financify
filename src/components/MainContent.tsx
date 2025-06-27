@@ -1,4 +1,10 @@
 import { FinancialDashboard } from "@/components/FinancialDashboard";
+import { HousingLoan } from "@/components/HousingLoan";
+import { VehicleLoan } from "@/components/VehicleLoan";
+import { MilesPage } from "@/components/MilesPage";
+import { SalaryIncome } from "@/components/SalaryIncome";
+import { RentalIncome } from "@/components/RentalIncome";
+import { CryptoInvestments } from "@/components/CryptoInvestments";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
@@ -138,6 +144,27 @@ export default function Subscriptions({
       </div>
     );
   }
+
+  // Handle loan submenu items
+  if (activeSection === "loan" && activeExpenseCategory === "Housing") {
+    return <HousingLoan />;
+  }
+  if (activeSection === "loan" && activeExpenseCategory === "Vehicle/Car") {
+    return <VehicleLoan />;
+  }
+  if (activeSection === "credit-card" && activeExpenseCategory === "Miles") {
+    return <MilesPage />;
+  }
+  if (activeSection === "income" && activeExpenseCategory === "Salary") {
+    return <SalaryIncome />;
+  }
+  if (activeSection === "income" && activeExpenseCategory === "Rental") {
+    return <RentalIncome />;
+  }
+  if (activeSection === "investments" && activeExpenseCategory === "Crypto") {
+    return <CryptoInvestments />;
+  }
+
   switch (activeSection) {
     case "dashboard":
       return <FinancialDashboard />;

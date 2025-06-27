@@ -7,7 +7,8 @@ import {
   CreditCard,
   DollarSign,
   TrendingDown,
-  ChevronRight
+  ChevronRight,
+  Briefcase
 } from "lucide-react";
 import {
   Sidebar,
@@ -73,6 +74,12 @@ const mainItems = [
     title: "Loan",
     icon: DollarSign,
     id: "loan",
+    hasSubmenu: true,
+  },
+  {
+    title: "Income",
+    icon: Briefcase,
+    id: "income",
     hasSubmenu: true,
   },
 ];
