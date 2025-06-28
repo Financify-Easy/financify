@@ -65,6 +65,12 @@ const mainItems = [
     ]
   },
   {
+    title: "Tax",
+    icon: DollarSign,
+    id: "tax",
+    hasSubmenu: true,
+  },
+  {
     title: "Credit Card",
     icon: CreditCard,
     id: "credit-card",

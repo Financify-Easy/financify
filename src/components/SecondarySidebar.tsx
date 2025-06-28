@@ -21,6 +21,8 @@ const sidebarContent = {
     { title: "Mutual Funds", icon: PieChart },
     { title: "ETFs", icon: Home },
     { title: "Crypto", icon: PieChart },
+    { title: "Dividends", icon: DollarSign },
+    { title: "Provident Funds", icon: DollarSign },
   ],
   reports: [
     { title: "Monthly", icon: FileText },
@@ -28,11 +30,19 @@ const sidebarContent = {
     { title: "Annual", icon: BarChart },
     { title: "Custom", icon: Home },
   ],
+  tax: [
+    { title: "Income Tax", icon: DollarSign },
+    { title: "Capital Gains Tax", icon: BarChart },
+    { title: "Crypto Gains Tax", icon: PieChart },
+  ],
   expenses: [
     { title: "Food", icon: ShoppingCart },
     { title: "Monthly Subscription", icon: CreditCard },
     { title: "Transport", icon: Car },
     { title: "Shopping", icon: ShoppingBag },
+    { title: "Rental", icon: Home },
+    { title: "Insurance", icon: DollarSign },
+    { title: "Utilities", icon: MoreHorizontal },
     { title: "Other", icon: MoreHorizontal },
   ],
   'credit-card': [
@@ -42,7 +52,8 @@ const sidebarContent = {
   ],
   loan: [
     { title: "Housing", icon: Building },
-    { title: "Vehicle/Car", icon: CarIcon },
+    { title: "Vehicle", icon: CarIcon },
+    { title: "Education", icon: Briefcase },
   ],
   income: [
     { title: "Salary", icon: Briefcase },
@@ -56,6 +67,28 @@ interface SecondarySidebarProps {
   setActiveSection: (section: string) => void;
   activeExpenseCategory?: string;
   setActiveExpenseCategory?: (category: string) => void;
+}
+
+function renderSidebarItems(items, setActiveExpenseCategory, activeExpenseCategory, level = 0) {
+  return items.map((item, index) => {
+    const hasSub = item.subcategories && item.subcategories.length > 0;
+    return (
+      <div key={item.title + index}>
+        <button
+          className={`w-full flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors text-left ${level > 0 ? 'pl-6' : ''} ${activeExpenseCategory === item.title ? 'bg-blue-100 text-blue-700' : ''}`}
+          onClick={setActiveExpenseCategory ? () => setActiveExpenseCategory(item.title) : undefined}
+        >
+          <item.icon className="w-5 h-5" />
+          <span className="font-medium">{item.title}</span>
+        </button>
+        {hasSub && (
+          <div className="ml-2 border-l border-blue-100">
+            {renderSidebarItems(item.subcategories, setActiveExpenseCategory, activeExpenseCategory, level + 1)}
+          </div>
+        )}
+      </div>
+    );
+  });
 }
 
 export function SecondarySidebar({ isOpen, activeSection, setActiveSection, activeExpenseCategory, setActiveExpenseCategory }: SecondarySidebarProps) {
@@ -90,7 +123,6 @@ export function SecondarySidebar({ isOpen, activeSection, setActiveSection, acti
 
   if (!isOpen) return null;
 
-  // Always show the expenses menu for 'expenses' section
   if (activeSection === "expenses") {
     return (
       <div className="w-64 bg-white border-r shadow-lg animate-slide-in-right">
@@ -100,16 +132,7 @@ export function SecondarySidebar({ isOpen, activeSection, setActiveSection, acti
           </div>
         </div>
         <div className="p-2">
-          {currentItems.map((item, index) => (
-            <button
-              key={index}
-              className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors text-left"
-              onClick={setActiveExpenseCategory ? () => setActiveExpenseCategory(item.title) : undefined}
-            >
-              <item.icon className="w-5 h-5" />
-              <span className="font-medium">{item.title}</span>
-            </button>
-          ))}
+          {renderSidebarItems(currentItems, setActiveExpenseCategory, activeExpenseCategory)}
         </div>
       </div>
     );
